@@ -1,6 +1,8 @@
 extends Sprite2D
 
-const PADDLE_SPEED: int = 500
+const PLAYER_PADDLE_SPEED: int = 500
+const ENEMY_PADDLE_SPEED: int = PLAYER_PADDLE_SPEED
+
 var player_score: int = 0
 var enemy_score: int = 0
 

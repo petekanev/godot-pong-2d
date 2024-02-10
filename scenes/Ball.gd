@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
 const SPEED = 5.0
-const MAX_SPEED = 15
-const ACCELERATION = 0.1
+const MAX_SPEED = 20
+const ACCELERATION = 0.2
 var direction = Vector2.ZERO
 var win_size: Vector2
 var current_speed: float
@@ -31,10 +31,10 @@ func _physics_process(delta):
 	# As good practice, you should replace UI actions with custom gameplay actions.
 
 	var collission := move_and_collide(velocity)
-	var collider: CollisionObject2D
+	#var collider: CollisionObject2D
 	
 	if collission:
-		collider = collission.get_collider()
+		#collider = collission.get_collider()
 		
 		direction = direction.bounce(collission.get_normal())
 		current_speed += ACCELERATION
