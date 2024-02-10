@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cjgfs5oykdku7"]
+[gd_scene load_steps=9 format=3 uid="uid://cjgfs5oykdku7"]
 
 [ext_resource type="Texture2D" uid="uid://dx1ee7kr37uvo" path="res://pong-galaxy-background-alt.jpg" id="1_5h837"]
 [ext_resource type="Script" path="res://scenes/main.gd" id="2_nrc8p"]
@@ -13,9 +13,6 @@ size = Vector2(20, 200)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5cqq3"]
 size = Vector2(1280, 45.0156)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2wi8e"]
-size = Vector2(56, 720)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3tg5a"]
 size = Vector2(64, 720)
 
@@ -26,15 +23,14 @@ centered = false
 script = ExtResource("2_nrc8p")
 
 [node name="MiddleBar" type="ColorRect" parent="."]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -10.0
+offset_left = -3.0
 offset_top = -360.0
-offset_right = 10.0
+offset_right = 2.0
 offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -92,10 +88,6 @@ shape = SubResource("RectangleShape2D_5cqq3")
 position = Vector2(640, -22.5078)
 shape = SubResource("RectangleShape2D_5cqq3")
 
-[node name="Right" type="CollisionShape2D" parent="Borders"]
-position = Vector2(1308, 360)
-shape = SubResource("RectangleShape2D_2wi8e")
-
 [node name="ScoreLeft" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreLeft"]
@@ -103,25 +95,39 @@ position = Vector2(-32, 360)
 shape = SubResource("RectangleShape2D_3tg5a")
 debug_color = Color(0.980392, 0, 0, 0.419608)
 
+[node name="ScoreRight" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreRight"]
+position = Vector2(1312, 360)
+shape = SubResource("RectangleShape2D_3tg5a")
+debug_color = Color(0.980392, 0, 0, 0.419608)
+
 [node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="ScoreLabel" type="Label" parent="HUD"]
-offset_left = 510.0
-offset_right = 637.0
+[node name="EnemyScoreLabel" type="Label" parent="HUD"]
+offset_left = 650.0
+offset_right = 709.0
 offset_bottom = 55.0
+theme_type_variation = &"HeaderMedium"
 theme_override_font_sizes/font_size = 40
 text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="ScoreText" type="Label" parent="HUD"]
-offset_left = 383.0
-offset_right = 510.0
+[node name="ScoreLabel" type="Label" parent="HUD"]
+offset_left = 566.0
+offset_right = 625.0
 offset_bottom = 55.0
+theme_type_variation = &"HeaderMedium"
 theme_override_font_sizes/font_size = 40
-text = "Score: "
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="BallTimer" type="Timer" parent="."]
+[node name="GameTimer" type="Timer" parent="."]
 one_shot = true
 autostart = true
 
 [connection signal="body_entered" from="ScoreLeft" to="." method="_on_score_left_body_entered"]
-[connection signal="timeout" from="BallTimer" to="." method="_on_ball_timer_timeout"]
+[connection signal="body_entered" from="ScoreRight" to="." method="_on_score_right_body_entered"]
+[connection signal="timeout" from="GameTimer" to="." method="_on_ball_timer_timeout"]

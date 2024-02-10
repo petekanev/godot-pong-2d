@@ -11,7 +11,7 @@ func _ready():
 	win_size = get_viewport_rect().size
 	current_speed = SPEED
 
-func new_ball():
+func reset_ball():
 	direction.x = [-1, 1].pick_random()
 	direction.y = [-1, 1].pick_random()
 	position.x = win_size.x / 2
@@ -19,6 +19,12 @@ func new_ball():
 	
 	# reset the ball speed
 	current_speed = SPEED
+
+func show_ball():
+	visible = true
+
+func hide_ball():
+	visible = false
 
 func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
@@ -32,9 +38,6 @@ func _physics_process(delta):
 		
 		direction = direction.bounce(collission.get_normal())
 		current_speed += ACCELERATION
-	
-	if collider:
-		print(collider)
 
 	var speed = min(current_speed, MAX_SPEED)
 
@@ -43,7 +46,4 @@ func _physics_process(delta):
 		velocity = direction * speed
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, speed)
-		
-		
-	print(velocity)
 	

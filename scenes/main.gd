@@ -1,7 +1,8 @@
 extends Sprite2D
 
-var score := 0 # player score
 const PADDLE_SPEED: int = 500
+var player_score: int = 0
+var enemy_score: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,11 +15,25 @@ func _process(delta):
 
 
 func _on_ball_timer_timeout():
-	$Ball.new_ball()
+	$Ball.show_ball()
+
+	$Ball.reset_ball()
+
+
+func reset_ball():
+	$Ball.hide_ball()
+	$GameTimer.start()
 
 
 func _on_score_left_body_entered(body):
-	$HUD/ScoreLabel.text = str(int($HUD/ScoreLabel.text) - 1)
+	enemy_score += 1
 	
-	if $BallTimer.is_stopped:
-		$BallTimer.start()
+	$HUD/EnemyScoreLabel.text = str(enemy_score)
+	reset_ball()
+
+
+func _on_score_right_body_entered(body):
+	player_score += 1
+
+	$HUD/ScoreLabel.text = str(player_score)
+	reset_ball()

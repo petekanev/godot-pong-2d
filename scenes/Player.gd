@@ -7,7 +7,6 @@ var player_height: int
 func _ready():
 	win_height = get_viewport_rect().size.y
 	player_height = $ColorRect.get_size().y
-	#print(win_height, player_height)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
